@@ -2,25 +2,16 @@ package com.example.cia;
 
 import java.io.File;
 import java.util.ArrayList;
-
-
 import android.app.Activity;
-
-
 import android.content.Intent;
-
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-
 import android.widget.AdapterView;
-
 import android.widget.GridView;
-
 import android.widget.Button;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -62,6 +53,8 @@ public class GalleryActivityShow extends Activity {
         gridViewAdapter = new GridViewAdapter(getApplicationContext(), getAllShowImagesPath(targetPath));
         
         gridView.setAdapter(gridViewAdapter);
+       
+        		
         
         gridView.setOnItemClickListener(new OnItemClickListener(){
         	
@@ -70,9 +63,9 @@ public class GalleryActivityShow extends Activity {
 					int position, long id) {
 				// TODO Auto-generated method stub
 				String rutaDeLaImagen = gridViewAdapter.getItem(position).toString();
-				positionSet = gridViewAdapter.getItem(position);
-				Toast.makeText(getApplicationContext(), "Fotografía seleccionada lista para vincular", Toast.LENGTH_SHORT).show();				
-        		Intent intent = new Intent();
+				positionSet = gridViewAdapter.getItem(position);				
+				Toast.makeText(getApplicationContext(), "Fotografía seleccionada lista para vincular", Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent();
         		intent.setAction(Intent.ACTION_VIEW);
         		intent.setDataAndType(Uri.parse("file://"+rutaDeLaImagen), "image/*");
         		startActivity(intent);
@@ -112,11 +105,9 @@ public class GalleryActivityShow extends Activity {
 				Toast.makeText(getApplicationContext(), "Archivos vinculados, listos para ser procesados", 
 						Toast.LENGTH_LONG).show();
 				finish();
-			}else if(!VincularTxt || !VincularImg){
+			}else if(!VincularTxt){
 				
-				Toast.makeText(getApplicationContext(), "No se puede vincular hace falta un comentario o la imagen no fue guardada correctamente",
-						
-						Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "No existe comentario para la imagen vinculada", Toast.LENGTH_LONG).show();
 				finish();
 			}
 						

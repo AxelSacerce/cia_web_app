@@ -65,6 +65,7 @@ public class GridViewAdapter extends BaseAdapter
 			img = (ImageView) convertView;
 		}
 		
+		
 		/* Libreria para galerias
 		Picasso.with(context)
 		.load("file://"+items.get(position))

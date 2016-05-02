@@ -9,14 +9,17 @@
     <GridView
         android:id="@+id/PhoneImageGrid"
         android:layout_width="match_parent"
-        android:layout_height="192dp"
+        android:layout_height="wrap_content"
         android:layout_weight="2.20"
         android:columnWidth="190dp"
         android:gravity="center"
         android:horizontalSpacing="10dp"
         android:numColumns="auto_fit"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="10dp" >
+        android:verticalSpacing="10dp"
+        android:drawSelectorOnTop="true"
+        android:listSelector="@drawable/color_select" >
+
     </GridView>
 
     <LinearLayout

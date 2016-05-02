@@ -32,7 +32,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_marginLeft="15dp"
 	        android:layout_marginTop="25dp"
-	        android:text="@string/nombre"
+	        android:text="@string/strAsunto"
 	        android:textColor="@color/Beige" />
 
 	    <EditText
@@ -54,7 +54,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_marginLeft="15dp"
 	        android:layout_marginTop="25dp"
-	        android:text="@string/comentarios"
+	        android:text="@string/strComentario"
 	        android:textColor="@color/Beige" />
 
 	    <EditText

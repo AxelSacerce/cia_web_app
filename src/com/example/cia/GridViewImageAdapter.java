@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import android.R.color;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -75,6 +76,7 @@ public class GridViewImageAdapter extends BaseAdapter {
 
 		// constructor
 		public OnImageClickListener(int position) {
+			
 			this._postion = position;
 		}
 
@@ -82,6 +84,7 @@ public class GridViewImageAdapter extends BaseAdapter {
 		public void onClick(View v) {
 			// on selecting grid view image
 			// launch full screen activity
+			
 			Intent i = new Intent(_activity, FullScreenViewActivity.class);
 			i.putExtra("position", _postion);
 			_activity.startActivity(i);

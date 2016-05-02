@@ -333,10 +333,10 @@ public class UploadFTPActivity extends Activity
 		        	dialog.setMessage("Error al procesar el último archivo. \nSe han procesado "+values[0]+" archivos de "+total);
 		        else
 		        {
-		        	dialog.setMessage("Archivos procesados "+values[0]+" de "+total + " archivos");
+		        	dialog.setMessage("Procesados:  "+values[0]+" de "+total + " archivos");
 		        	last++;
 		        }
-		        tv.setText("Archivos procesados "+values[0]+"  de "+total + " archivos");
+		        tv.setText("Procesados: "+values[0]+"  de "+total + " archivos");
 		    }//end of onProgressUpdate
 		 
 		 //After finishing the progress the dialog will disappear!

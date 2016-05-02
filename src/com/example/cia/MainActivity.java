@@ -682,8 +682,7 @@ public class MainActivity extends Activity {
 	    	}else if(Get.contains("logout=1"))
 	    	{ 
 	    	    
-	    		 finish();
-	             System.exit(0);
+	    		onDestroy();
 	    	}
 	    		
     
