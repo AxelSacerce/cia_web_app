@@ -20,8 +20,10 @@ public class GalleryActivityShow extends Activity {
 
 	private GridView gridView;
 	private GridViewAdapter gridViewAdapter;
-	Button btnVincular;
+	static Button btnVincular;
 	static Button btnBack;
+	static Button btnVer;
+	String rutaDeLaImagen;
 	Object positionSet = 0;
 	String ExternalStorageDirectoryPath = Environment
     		.getExternalStorageDirectory()
@@ -47,6 +49,7 @@ public class GalleryActivityShow extends Activity {
         gridView 	= (GridView)findViewById(R.id.PhoneImageGrid);
         btnVincular = (Button) findViewById(R.id.btnVincular);
         btnBack 	= (Button)findViewById(R.id.btnBack);
+        btnVer  	= (Button)findViewById(R.id.btnVer);
         
         RenameFIntent = getIntent().getStringExtra("RenameFileLink");
         
@@ -62,16 +65,16 @@ public class GalleryActivityShow extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				String rutaDeLaImagen = gridViewAdapter.getItem(position).toString();
+        		rutaDeLaImagen = gridViewAdapter.getItem(position).toString();
 				positionSet = gridViewAdapter.getItem(position);				
 				Toast.makeText(getApplicationContext(), "Fotografía seleccionada lista para vincular", Toast.LENGTH_SHORT).show();
-				Intent intent = new Intent();
-        		intent.setAction(Intent.ACTION_VIEW);
-        		intent.setDataAndType(Uri.parse("file://"+rutaDeLaImagen), "image/*");
-        		startActivity(intent);
+				
+				
 			}
         	
         });
+        
+        
         
        btnVincular.setOnClickListener(new OnClickListener(){
 
@@ -119,11 +122,23 @@ public class GalleryActivityShow extends Activity {
 
 		@Override
 		public void onClick(View v) {
+			
 			finish();
 		}
     	   
     	   
        });
+       btnVer.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			Intent intent = new Intent();
+    		intent.setAction(Intent.ACTION_VIEW);
+    		intent.setDataAndType(Uri.parse("file://"+rutaDeLaImagen), "image/*");
+    		startActivity(intent);
+			
+		}
+	});
         
         
         
@@ -145,7 +160,19 @@ public class GalleryActivityShow extends Activity {
         File targetDirector = new File(DirectoryPath);
         
         File[] files = targetDirector.listFiles();
-        
+        	if(files.length <= 0 ){
+
+        		btnVer.setEnabled(false);
+        		btnVer.setAlpha(100);
+        		btnVincular.setEnabled(false);
+        		btnVincular.setText("Sin imágenes");
+        		btnVincular.setAlpha(75);
+        		
+        	}else{
+        		
+        		btnVer.setEnabled(true);
+        		btnVincular.setEnabled(true);
+        	}
         
 		        for (File file : files){
 		        	absolutePathImage = file.getAbsolutePath();

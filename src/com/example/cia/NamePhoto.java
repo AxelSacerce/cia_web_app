@@ -11,10 +11,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -55,18 +53,17 @@ public class NamePhoto extends Activity
               tv1 = (TextView)findViewById(R.id.textView1);
               tv2 = (TextView)findViewById(R.id.textView2);
               tv3 = (TextView)findViewById(R.id.textView3);
-              
+              image1 = (ImageView) findViewById(R.id.imageView1);
               
               path = getIntent().getStringExtra("path");
               name = getIntent().getStringExtra("name");
               actividad = getIntent().getStringExtra("actividad");
               //edit1.setText(name);
               imgFile = new  File(path);
-              Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-              image1 = (ImageView) findViewById(R.id.imageView1);						
+              Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());              					
               image1.setImageBitmap(myBitmap);	
               
-              //tv1.setText("PRUEBA");
+              //tv1.setText(imgFile.toString());
               
               btnOk.setOnClickListener(new OnClickListener() 
       		  {
@@ -117,7 +114,8 @@ public class NamePhoto extends Activity
       					}
       					
       			       
-      			        onBackPressed();
+      			        //onBackPressed();
+      					finish();
       			        
       			        
       				}
@@ -152,7 +150,8 @@ public class NamePhoto extends Activity
     			        	imgFile.delete();
     			        	Toast toast = Toast.makeText(getApplicationContext(),"No ha sido guardada la fotografía.", Toast.LENGTH_SHORT);
     	      		    	toast.show();
-     			        	onBackPressed();
+     			        	//onBackPressed();
+    	      		    	finish();
     			         }
     			    }).show();
       					

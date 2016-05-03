@@ -32,17 +32,25 @@
             android:id="@+id/btnVincular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.20"
+            android:layout_weight="0.02"
             android:contentDescription="@string/strVincular"
             android:text="@string/strVincular" />
+
+        <Button
+            android:id="@+id/btnVer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.09"
+            android:text="@string/strVerImg" />
 
         <Button
             android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.48"
+            android:layout_weight="0.08"
             android:contentDescription="@string/strBack"
             android:text="@string/strBack" />
+
     </LinearLayout>
 
 </LinearLayout>

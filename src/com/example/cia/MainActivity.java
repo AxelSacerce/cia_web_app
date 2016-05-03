@@ -7,21 +7,18 @@ import java.io.BufferedReader;
 import android.provider.Settings.Secure;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.StringTokenizer;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -67,6 +64,23 @@ public class MainActivity extends Activity {
 		   return new SimpleDateFormat( "yyyyMMdd_HHmmss", java.util.Locale.getDefault()).format(Calendar.getInstance() .getTime());
 		}
 	
+	// verifica si existe conexion a internet
+	 public static boolean verificaConexion(Context ctx) {
+		    boolean bConectado = false;
+		    ConnectivityManager connec = (ConnectivityManager) ctx
+		            .getSystemService(Context.CONNECTIVITY_SERVICE);
+		    // No sólo wifi, también GPRS
+		    NetworkInfo[] redes = connec.getAllNetworkInfo();
+
+		    for (int i = 0; i < redes.length; i++) {
+		        // ¿Tenemos conexión? ponemos a true
+		        if (redes[i].getState() == NetworkInfo.State.CONNECTED) {
+		            bConectado = true;
+		        }
+		    }
+		    return bConectado;
+		}
+	
 	
 	@SuppressLint("JavascriptInterface")
 	@Override
@@ -86,7 +100,9 @@ public class MainActivity extends Activity {
     	if(!directorio.exists())
     		directorio.mkdirs();
     	
-		if(!isOnline())
+    	//Toast.makeText(getApplicationContext(),"Android ID: " + android_id, Toast.LENGTH_LONG).show();
+    	
+		if(verificaConexion(this) == false)
 		{
 			new AlertDialog.Builder(this)
 			    .setTitle("Falla de conexión")
@@ -105,14 +121,12 @@ public class MainActivity extends Activity {
 				    	String state = Environment.getExternalStorageState();
 			            if (Environment.MEDIA_MOUNTED.equals(state)) 
 			            {
-			                //Calendar c = Calendar.getInstance();
-			                //SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd_HHmmss");
+			               
 			            	DateTyme = fechaHoraActual();
 			                
 			                
 			                photoPath = Environment.getExternalStorageDirectory() + "/DCIM/CIA2/" + DateTyme +".jpg";
-			               // writeToFile(photoPath,"pathphoto.txt");
-			                //writeToFile(formattedDate,"name.txt");
+			               
 			                try
 			                {
 			                    File photo = new File(photoPath);
@@ -125,14 +139,12 @@ public class MainActivity extends Activity {
 			                } 
 			                catch (Exception e) 
 			                {
-			                	Toast toast = Toast.makeText(getApplicationContext(),e+"", Toast.LENGTH_SHORT);
-			    		    	toast.show();
+			                	Toast.makeText(getApplicationContext(),e+"", Toast.LENGTH_SHORT).show();
 			                }
 			            }
 			            else
 			            {
-			            	Toast toast = Toast.makeText(getApplicationContext(),"Existen fallos en la conexión con la cámara del dispositivo", Toast.LENGTH_SHORT);
-		    		    	toast.show();
+			            	Toast.makeText(getApplicationContext(),"Existen fallos en la conexión con la cámara del dispositivo", Toast.LENGTH_SHORT).show();
 			            }
 			        	 
 			             
@@ -146,64 +158,65 @@ public class MainActivity extends Activity {
 			    }).show();
 		}
    
-		myWebView = (WebView) findViewById(R.id.webView);
+				myWebView = (WebView) findViewById(R.id.webView);
+				
+				WebSettings webSettings = myWebView.getSettings();
+		        webSettings.setJavaScriptEnabled(true);
 		
-		WebSettings webSettings = myWebView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-
-
-        /* Register a new JavaScript interface called HTMLOUT */
-       // myWebView.addJavascriptInterface(new MyJavaScriptInterface(), "HTMLOUT");
-
-        myWebView.setWebViewClient(new MyCustomWebViewClient());
-        
-        //PCID
-        myWebView.setWebChromeClient(new WebChromeClient() {
-        	 public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
-        	    callback.invoke(origin, true, false);
-        	 }
-        	});
-        // FIN PCID
-        RedirecTo = getIntent().getStringExtra("redirec");
-        
-        if(RedirecTo != null){
-        	myWebView.loadUrl(RedirecTo);
-        	Log.i("Redirigido", RedirecTo.toString());
-            //myWebView.loadUrl("http://www.twitter.com");
-            
-            myWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        }else{
-        	RedirecTo = "http://www.chispudo.com:8000/cia/webapp";
-	        myWebView.loadUrl(RedirecTo);
-	        Log.i("Dirigido al inicio", RedirecTo.toString());
-	        //myWebView.loadUrl("http://www.twitter.com");
-	        
-	        myWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        
-        }
-        
-        
-        //WebViewOculto
-        webViewOculto = (WebView) findViewById(R.id.webView2);
+		        /* Register a new JavaScript interface called HTMLOUT  ////// CALLING OBSOLET METHOD */
+		       // myWebView.addJavascriptInterface(new MyJavaScriptInterface(), "HTMLOUT");
 		
-		WebSettings webSettings2 = webViewOculto.getSettings();
-        webSettings2.setJavaScriptEnabled(true);
-
-
-        /* Register a new JavaScript interface called HTMLOUT */
-        webViewOculto.addJavascriptInterface(new MyJavaScriptInterface(), "HTMLOUT");
-
-        webViewOculto.setWebViewClient(new MyCustomWebViewClient());
+		        myWebView.setWebViewClient(new MyCustomWebViewClient());
+		        
+		        //PCID
+		        myWebView.setWebChromeClient(new WebChromeClient() {
+		        	 public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+		        	    callback.invoke(origin, true, false);
+		        	 }
+		        	});
+		        // FIN PCID
+		        RedirecTo = getIntent().getStringExtra("redirec");
+		        
+		        if(RedirecTo != null){
+		        	
+		        	myWebView.loadUrl(RedirecTo);
+		        	Log.i("Redirigido", RedirecTo.toString());
+		            
+		            
+		            myWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+		        }else{
+		        	RedirecTo = "http://www.chispudo.com:8000/cia/webapp";
+			        myWebView.loadUrl(RedirecTo);
+			        Log.i("Dirigido al inicio", RedirecTo.toString());
+			        
+			        myWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+		        
+		        }
+		        
+		        
+		        //WebViewOculto
+		        webViewOculto = (WebView) findViewById(R.id.webView2);
+				
+				WebSettings webSettings2 = webViewOculto.getSettings();
+		        webSettings2.setJavaScriptEnabled(true);
+		
+		
+		        /* Register a new JavaScript interface called HTMLOUT /// CALLING OBSOLET METHOD */
+		        //webViewOculto.addJavascriptInterface(new MyJavaScriptInterface(), "HTMLOUT");
+		
+		        webViewOculto.setWebViewClient(new MyCustomWebViewClient());
+		        
+		        //PCID
+		        webViewOculto.setWebChromeClient(new WebChromeClient() {
+		        	 public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+		        	    callback.invoke(origin, true, false);
+		        	 }
+		        	});
+		        // FIN PCID
+		        webViewOculto.loadUrl("http://www.chispudo.com:8000/cia/webapp");
+		        webViewOculto.setVisibility(View.GONE);	
         
-        //PCID
-        webViewOculto.setWebChromeClient(new WebChromeClient() {
-        	 public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
-        	    callback.invoke(origin, true, false);
-        	 }
-        	});
-        // FIN PCID
-        webViewOculto.loadUrl("http://www.chispudo.com:8000/cia/webapp");
-        webViewOculto.setVisibility(View.GONE);		
+		
 	}
 
 	
@@ -221,7 +234,7 @@ public class MainActivity extends Activity {
 	    switch (item.getItemId()) 
 	    {
 	        case R.id.upload :
-	        	if(isOnline())
+	        	if(verificaConexion(this) == true)
 	        	{
 	        		
 	        		webViewOculto.loadUrl("http://www.chispudo.com:8000/cia/existsLogin.php");
@@ -229,13 +242,13 @@ public class MainActivity extends Activity {
 	        		if (session == "UPLOAD"){
 	    	    		
 	    	    		
-	    	    		//Toast.makeText(getApplicationContext(), "Upload Init", Toast.LENGTH_SHORT).show();
+	    	    		
 	    	    		session = "";
 	    	    		
 	    	    		Intent i = new Intent(MainActivity.this,UploadFTPActivity.class);
 	    	    		i.putExtra("redirccion", uriRedirect);
 	    	            startActivity(i);
-	    	            //Toast.makeText(getApplicationContext(), uriRedirect, Toast.LENGTH_LONG).show();
+	    	            
 	    	            session = "";
 	    	    	}
 	        		
@@ -244,73 +257,11 @@ public class MainActivity extends Activity {
 	        	}
 	        	else
 	        	{
-	        		Toast toast = Toast.makeText(getApplicationContext(),"Existen fallos en la conexión con internet.", Toast.LENGTH_SHORT);
-    		    	toast.show();
+	        		Toast.makeText(getApplicationContext(),"Existen fallos en la conexión con internet.", Toast.LENGTH_SHORT).show();
 	        	}
-	            return true;
-	        
-	        /*case R.id.view1: 
-	        	String LoadRedirecto ="http://www.chispudo.com:8000/cia/webapp/main.php?"+uriRedirect;
-            	myWebView.loadUrl(LoadRedirecto);
-	        	
-	        	File folder1 = new File(Environment.getExternalStorageDirectory().toString()+"/DCIM/CIA");        
-	            File files1[] = folder1.listFiles();
-
-	            boolean show1 = false;
-	            for (int j=0; j < files1.length; j++)
-	            {
-	            	if(files1[j].isFile())
-	            	{	
-	            		if(files1[j].getAbsolutePath().contains(".jpg"))
-	            		{
-	            			show1 = true;
-	            		}
-	            	}
-	            }
-	        	
-	            if(show1)
-	            {
-	            	 
-	       
-	    	    	session = "VIEW";	
-	            }
-	            else
-	            {
-	            	Toast toast = Toast.makeText(getApplicationContext(),"No hay fotos por subir.", Toast.LENGTH_SHORT);
-    		    	toast.show();
-	            }
-	        	return true;*/
-	        	
-	        /*case R.id.view2:
-	        	File folder = new File(Environment.getExternalStorageDirectory().toString()+"/DCIM/CIA2");        
-	            File files[] = folder.listFiles();
-
-	            boolean show = false;
-	            for (int j=0; j < files.length; j++)
-	            {
-	            	if(files[j].isFile())
-	            	{	
-	            		if(files[j].getAbsolutePath().contains(".jpg"))
-	            		{
-	            			show = true;
-	            		}
-	            	}
-	            }
-	        	
-	            if(show)
-	            {
-	            	webViewOculto.loadUrl("http://www.chispudo.com:8000/cia/existsLogin.php");
-	    	    	session = "VIEW2";	
-	            }
-	            else
-	            {
-	            	Toast toast = Toast.makeText(getApplicationContext(),"No hay fotos por enlazar.", Toast.LENGTH_SHORT);
-    		    	toast.show();
-	            }
-	        	return true;*/
-	        
+	            return true;        
 	        case R.id.takephoto:
-	        	if(isOnline())
+	        	if(verificaConexion(this) == true)
 	        	{
 	        		new AlertDialog.Builder(this)
 				    .setTitle("Toma de Foto")
@@ -328,19 +279,13 @@ public class MainActivity extends Activity {
 					    	String state = Environment.getExternalStorageState();
 				            if (Environment.MEDIA_MOUNTED.equals(state)) 
 				            {
-				                //Calendar c = Calendar.getInstance();
-				                //SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd_HHmmss");
-				                //String formattedDate = df.format(c.getTime());
+				               
 				            	DateTyme = fechaHoraActual();
 				                photoPath = Environment.getExternalStorageDirectory() + "/DCIM/CIA2/" + DateTyme +".jpg";
-				                /*writeToFile(photoPath,"pathphoto.txt");
-				                writeToFile(DateTyme,"name.txt");*/
+				             
 				                try
 				                {
 				                    File photo = new File(photoPath);
-				                    //intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(photo));	                    
-				                    //startActivityForResult(Intent.createChooser(intent, "Capture Image"), 1);
-				                
 				                    Intent cameraIntent = new Intent("android.media.action.IMAGE_CAPTURE"); 
 				                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(photo));
 				                    startActivityForResult(cameraIntent,5);
@@ -349,14 +294,12 @@ public class MainActivity extends Activity {
 				                } 
 				                catch (Exception e) 
 				                {
-				                	Toast toast = Toast.makeText(getApplicationContext(),e+"", Toast.LENGTH_SHORT);
-				    		    	toast.show();
+				                	Toast.makeText(getApplicationContext(),e+"", Toast.LENGTH_SHORT).show();
 				                }
 				            }
 				            else
 				            {
-				            	Toast toast = Toast.makeText(getApplicationContext(),"Existen fallos en la conexión con la cámara del dispositivo", Toast.LENGTH_SHORT);
-			    		    	toast.show();
+				            	Toast.makeText(getApplicationContext(),"Existen fallos en la conexión con la cámara del dispositivo", Toast.LENGTH_SHORT).show();
 				            }
 				        	 
 				             
@@ -393,14 +336,12 @@ public class MainActivity extends Activity {
 		                } 
 		                catch (Exception e) 
 		                {
-		                	Toast toast = Toast.makeText(getApplicationContext(),e+"", Toast.LENGTH_SHORT);
-		    		    	toast.show();
+		                	Toast.makeText(getApplicationContext(),e+"", Toast.LENGTH_SHORT).show();
 		                }
 		            }
 		            else
 		            {
-		            	Toast toast = Toast.makeText(getApplicationContext(),"Existen fallos en la conexión con la cámara del dispositivo", Toast.LENGTH_SHORT);
-	    		    	toast.show();
+		            	Toast.makeText(getApplicationContext(),"Existen fallos en la conexión con la cámara del dispositivo", Toast.LENGTH_SHORT).show();
 		            }
 	        	
 	        	}
@@ -447,15 +388,18 @@ public class MainActivity extends Activity {
 	}
 
 	
-	// Obsolet method no functional method
+	// Code replace deprecated methods
 	private class MyCustomWebViewClient extends WebViewClient
 	{
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) 
         {
         	
+        	
         	if(url.contains("http://www.chispudo.com:8000/cia/webapp") == true)  	    	
         		view.loadUrl(url);
+        	
+        	
       	    return true;      	
         }
         
@@ -463,16 +407,20 @@ public class MainActivity extends Activity {
         public void onPageFinished(WebView view, String url)
         { 	
             
+        	
         	getURL = url;
         	processRequest(url);
-        	//view.loadUrl("javascript:window.HTMLOUT.processHTML('<head>'+document.getElementsByTagName('html')[0].innerHTML+'</head>');");
+        	
         }
         
       //Metodo para leer el html
         @SuppressWarnings("unused")
     	private String readFromFile(String file) 
     	{
-            String ret = "";     
+           
+        
+        	
+        	String ret = "";     
             try 
             {
                 InputStream inputStream = openFileInput(file);
@@ -493,13 +441,11 @@ public class MainActivity extends Activity {
             }
             catch (FileNotFoundException e) 
             {
-            	Toast toast = Toast.makeText(getApplicationContext(),"No se ha podido realizar el proceso, no se ha encontrado archivo txt", Toast.LENGTH_SHORT);
-    	    	toast.show();
+            	Toast.makeText(getApplicationContext(),"No se ha podido realizar el proceso, no se ha encontrado archivo txt", Toast.LENGTH_SHORT).show();
             } 
             catch (IOException e) 
             {
-            	Toast toast = Toast.makeText(getApplicationContext(),"No se ha podido realizar el proceso, no se ha leido el archivo txt", Toast.LENGTH_SHORT);
-    	    	toast.show();
+            	Toast.makeText(getApplicationContext(),"No se ha podido realizar el proceso, no se ha leido el archivo txt", Toast.LENGTH_SHORT).show();
             }
      
             return ret;
@@ -507,19 +453,13 @@ public class MainActivity extends Activity {
     	
     }
 	
-//  End Method deprecated --- and obsolet 
+// Code Deprecated deleted
 	
-	
-	
-	
+// **********************	
 	
 	
 	public void processRequest(String Get){
-		
-			
-    		
-	    	//toast.show();
-	    	
+
 	    	//Verifico existencia del directorio, sino lo creo
 	    	File directorio = new File(Environment.getExternalStorageDirectory() + "/DCIM/CIA");
 	    	if(!directorio.exists())
@@ -527,9 +467,7 @@ public class MainActivity extends Activity {
 	    	
 	    	
 	    	if(Get.contains("take_photo"))
-	    	{
-	    		//Toast.makeText(getApplicationContext(),"Tomar foto OK", Toast.LENGTH_SHORT).show();
-	    		
+	    	{	    		
 	    		int numero = 0;
         		String Usuario = "";
         		String Type = "";
@@ -589,25 +527,18 @@ public class MainActivity extends Activity {
         		
         		uriRedirect = "mnopt="+mnuOpt+"&idrow="+idrowR+"&idrow2="+idrowR2;
 	    		
-	    		//Toast.makeText(getApplicationContext(),"Take Photo true", Toast.LENGTH_SHORT).show();		    	
-		    	
-		    	
-		    	
+	    		
 		    	String state = Environment.getExternalStorageState();
 	            if (Environment.MEDIA_MOUNTED.equals(state)) 
 	            {
 	            	NameFile = name+DateTyme;
 	            	
 	                photoPath = Environment.getExternalStorageDirectory() + "/DCIM/CIA/" + NameFile;
-	                //pathText  = Environment.getExternalStorageDirectory() + "/DCIM/CIA/" + NameFile;
-	               
 	                
 	                try
 	                {
 	                	
-	                    File photo = new File(photoPath+".jpg");
-	                    
-	                
+	                    File photo = new File(photoPath+".jpg");              
 	                    Intent cameraIntent = new Intent("android.media.action.IMAGE_CAPTURE"); 
 	                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(photo));
 	                    startActivityForResult(cameraIntent,4);
@@ -659,8 +590,6 @@ public class MainActivity extends Activity {
 	        		Reference = splitLink5[0].trim();
 	        		
 	        		
-	        		
-	        		
 	        		if( numero < 100){
 	        			
 	        			Usuario = "0"+usr;
@@ -688,202 +617,6 @@ public class MainActivity extends Activity {
     
 	}
 	
-
-	// Deprecated Class
-	/* An instance of this class will be registered as a JavaScript interface */
-	private class MyJavaScriptInterface
-	{
-		String localHtml;
-
-	    @SuppressWarnings("unused")
-	    public void processHTML(String html)
-	    {
-	    	localHtml = html;
-	    	writeToFile(html,"HTML.txt");
-	    	Toast toast = Toast.makeText(getApplicationContext(),localHtml, Toast.LENGTH_SHORT);
-	    	//toast.show();
-	    	
-	    	if(html.contains("<div id=\"existLoginFlag\"") && html.contains("1") && session.equalsIgnoreCase("LOGOUT"))
-	    	{
-	    		myWebView.loadUrl("http://www.chispudo.com:8000/cia/webapp/index.php?logout=2");
-		    	session = "";
-	    	}
-	    	if(html.contains("<div id=\"existLoginFlag\"") && html.contains("1") && session.equalsIgnoreCase("UPLOAD"))
-	    	{
-	    		Intent i = new Intent(MainActivity.this,UploadFTPActivity.class);
-	            startActivity(i);
-	            session = "";
-	    	}
-	    	else if(html.contains("<div id=\"existLoginFlag\"") && html.contains("0") && session.equalsIgnoreCase("UPLOAD"))
-	    	{
-	    		toast = Toast.makeText(getApplicationContext(),"Acción no permitida.\n\nLas fotos pueden ser subidas al servidor al iniciar sesión.", Toast.LENGTH_SHORT);
-		    	toast.show();
-	    	}
-	    	
-	    	if(html.contains("<div id=\"existLoginFlag\"") && html.contains("1") && session.equalsIgnoreCase("VIEW2"))
-	    	{
-	    		Intent i = new Intent(MainActivity.this,GaleriaEnlazar.class);
-                startActivity(i);
-	            session = "";
-	    	}
-	    	else if(html.contains("<div id=\"existLoginFlag\"") && html.contains("0") && session.equalsIgnoreCase("VIEW2"))
-	    	{
-	    		toast = Toast.makeText(getApplicationContext(),"Acción no permitida.\n\nLas fotos pueden ser visualizadas al iniciar sesión.", Toast.LENGTH_SHORT);
-		    	toast.show();
-	    	}
-	    	
-	    	if(html.contains("<div id=\"existLoginFlag\"") && html.contains("1") && session.equalsIgnoreCase("VIEW"))
-	    	{
-	    		Intent i = new Intent(MainActivity.this,GaleriaSubir.class);
-                startActivity(i);
-	            session = "";
-	    	}
-	    	else if(html.contains("<div id=\"existLoginFlag\"") && html.contains("0") && session.equalsIgnoreCase("VIEW"))
-	    	{
-	    		toast = Toast.makeText(getApplicationContext(),"Acción no permitida.\n\nLas fotos pueden ser visualizadas al iniciar sesión.", Toast.LENGTH_SHORT);
-		    	toast.show();
-	    	}
-	    	
-	    	if(html.contains("CLOSE_JAVAAPP"))
-	    	{
-	    	
-	    		new AlertDialog.Builder(getApplicationContext())
-			    .setTitle("SALIR")
-			    .setMessage("¿Desea salir de la aplicación?")
-			    .setPositiveButton("Deseo salir.", new DialogInterface.OnClickListener() 
-			    {
-			         public void onClick(DialogInterface dialog, int whichButton) 
-			         {
-			        	 myWebView.loadUrl("http://www.chispudo.com:8000/cia/webapp/index.php?logout=1"); 
-			        	 finish();
-			             System.exit(0);
-			         }
-			    })
-			    .setNegativeButton("No deseo salir.", new DialogInterface.OnClickListener() {
-			         public void onClick(DialogInterface dialog, int whichButton) 
-			         {
-			                //No se hace nada
-			         }
-			    }).show();
-	    		/*myWebView.loadUrl("http://www.chispudo.com:8000/cia/webapp/index.php?logout=1");
-	    		finish();
-	            System.exit(0);*/
-	    	}
-	    	
-	    	if(html.contains("<div id=\"master_action_content\""))
-	    	{
-	    		toast = Toast.makeText(getApplicationContext(),"Lo contiene", Toast.LENGTH_SHORT);
-		    	//toast.show();
-		    	
-		    	//Verifico existencia del directorio, sino lo creo
-		    	File directorio = new File(Environment.getExternalStorageDirectory() + "/DCIM/CIA");
-		    	if(!directorio.exists())
-    		    	directorio.mkdir();
-		    	
-		    	String commands = localHtml.substring(localHtml.indexOf("<div id=\"master_action_content\" name=\"master_action_content\">")+61,localHtml.length()-1);
-		    	StringTokenizer st = new StringTokenizer(commands,"|");
-		    	
-		    	toast = Toast.makeText(getApplicationContext(),commands, Toast.LENGTH_SHORT);
-		    	//toast.show();
-		    	
-		    	String accion = st.nextToken();
-
-		    	if(accion.equalsIgnoreCase("TAKE_PHOTO"))
-		    	{
-		    		toast = Toast.makeText(getApplicationContext(),"Take Photo", Toast.LENGTH_SHORT);
-			    	//toast.show();
-			    	
-		    		String name = st.nextToken();
-		    		StringTokenizer st2 = new StringTokenizer(st.nextToken(),"<");
-		    		String link = st2.nextToken();
-		    		writeToFile(link,"linktogo.txt");
-		    		
-			    			    	
-			    	
-			    	String photoPath = "";
-			    	String state = Environment.getExternalStorageState();
-		            if (Environment.MEDIA_MOUNTED.equals(state)) 
-		            {
-		                Calendar c = Calendar.getInstance();
-		                SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd_HHmmss");
-		                String formattedDate = df.format(c.getTime());
-		                photoPath = Environment.getExternalStorageDirectory() + "/DCIM/CIA/" + name + formattedDate +".jpg";
-		                writeToFile(photoPath,"pathphoto.txt");
-		                writeToFile(name+formattedDate,"name.txt");
-		                
-		                try
-		                {
-		                    File photo = new File(photoPath);
-		                    //intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(photo));	                    
-		                    //startActivityForResult(Intent.createChooser(intent, "Capture Image"), 1);
-		                
-		                    Intent cameraIntent = new Intent("android.media.action.IMAGE_CAPTURE"); 
-		                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(photo));
-		                    startActivityForResult(cameraIntent,1);
-		                
-		                } 
-		                catch (Exception e) 
-		                {
-		                	toast = Toast.makeText(getApplicationContext(),e+"", Toast.LENGTH_SHORT);
-		    		    	toast.show();
-		                }
-		            }
-		            else
-		            {
-		            	toast = Toast.makeText(getApplicationContext(),"Existen fallos en la conexión con la cámara del dispositivo", Toast.LENGTH_SHORT);
-	    		    	toast.show();
-		            }
-		    	}
-		    	else if(accion.equalsIgnoreCase("LINK_PHOTO"))
-		    	{
-		    		/*sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, 
-			                 Uri.parse("file://"+ Environment.getExternalStorageDirectory())));
-		    		toast = Toast.makeText(getApplicationContext(),"Seleccione las fotos a enlazar.", Toast.LENGTH_SHORT);
-    		    	toast.show();
-		    		Intent i = new Intent(MainActivity.this,SynchronizeImage.class);
-		    		i.putExtra("nombre",st.nextToken());
-		    		StringTokenizer st2 = new StringTokenizer(st.nextToken(),"<");
-		    		String link = st2.nextToken();
-		    		writeToFile(link,"linktogo2.txt");
-		    		startActivityForResult(i,3);*/
-		    	}	
-	    	}
-	    	else
-	    	{
-	    		//toast = Toast.makeText(getApplicationContext(),"No Lo contiene", Toast.LENGTH_SHORT);
-		    	//toast.show();
-	    	}
-
-	    	
-	        // process the html as needed by the app
-	    }
-	    
-	    
-	    
-	    //En este metodo escribo en un archivo txt el codigo html de la pagina
-	    private void writeToFile(String data,String file) 
-	    {
-	        try 
-	        {
-	            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(file, Context.MODE_PRIVATE));
-	            outputStreamWriter.write(data);
-	            outputStreamWriter.close();
-	        }
-	        catch (IOException e) 
-	        {
-	        	Toast toast = Toast.makeText(getApplicationContext(),"No se ha podido realizar el proceso", Toast.LENGTH_SHORT);
-		    	toast.show();
-	        } 
-	         
-	    }
-	    
-	}
-	
-	
-	
-	
-	
-	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    super.onActivityResult(requestCode, resultCode, data);
@@ -900,8 +633,7 @@ public class MainActivity extends Activity {
 	    	i.putExtra("name",readFromFile("name.txt"));
 	    	i.putExtra("actividad","interna");
             startActivityForResult(i,4);
-            Toast toast = Toast.makeText(getApplicationContext(),"Foto tomada, agregue un nombre\n y una descripción foto interna.", Toast.LENGTH_SHORT);
-	    	toast.show();
+            Toast.makeText(getApplicationContext(),"Foto tomada, agregue un nombre\n y una descripción.", Toast.LENGTH_SHORT).show();
 	    }
 	    else if(requestCode == 4 && resultCode != RESULT_OK)
 	    {
@@ -923,8 +655,7 @@ public class MainActivity extends Activity {
 	    	i.putExtra("name",readFromFile("name.txt"));
 	    	i.putExtra("actividad","Externa");
            startActivityForResult(i,5);
-           Toast toast = Toast.makeText(getApplicationContext(),"Foto tomada, agregue un nombre y una descripción foto externa.", Toast.LENGTH_SHORT);
-	    	toast.show();	    		    	
+           Toast.makeText(getApplicationContext(),"Foto tomada, agregue un nombre y una descripción.", Toast.LENGTH_SHORT).show();	    		    	
 	    }
 	}
 	
@@ -939,8 +670,7 @@ public class MainActivity extends Activity {
         }
         catch (IOException e) 
         {
-        	Toast toast = Toast.makeText(getApplicationContext(),"No se ha podido realizar el proceso", Toast.LENGTH_SHORT);
-	    	toast.show();
+        	Toast.makeText(getApplicationContext(),"No se ha podido realizar el proceso", Toast.LENGTH_SHORT).show();
         } 
          
     }
@@ -971,13 +701,11 @@ public class MainActivity extends Activity {
         }
         catch (FileNotFoundException e) 
         {
-        	Toast toast = Toast.makeText(getApplicationContext(),"No se ha podido realizar el proceso, no se ha encontrado archivo txt", Toast.LENGTH_SHORT);
-	    	toast.show();
+        	Toast.makeText(getApplicationContext(),"No se ha podido realizar el proceso, no se ha encontrado archivo txt", Toast.LENGTH_SHORT).show();
         } 
         catch (IOException e) 
         {
-        	Toast toast = Toast.makeText(getApplicationContext(),"No se ha podido realizar el proceso, no se ha leido el archivo txt", Toast.LENGTH_SHORT);
-	    	toast.show();
+        	Toast.makeText(getApplicationContext(),"No se ha podido realizar el proceso, no se ha leido el archivo txt", Toast.LENGTH_SHORT).show();
         }
  
         return ret;

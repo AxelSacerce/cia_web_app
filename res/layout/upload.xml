@@ -2,7 +2,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="@drawable/fondo1" >
+    android:background="@drawable/fondo1"
+    android:keepScreenOn="true" >
 
     <ImageView
         android:id="@+id/imageView1"

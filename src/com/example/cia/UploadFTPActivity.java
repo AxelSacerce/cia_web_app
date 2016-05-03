@@ -128,9 +128,7 @@ public class UploadFTPActivity extends Activity
       				Intent redir = new Intent(UploadFTPActivity.this, MainActivity.class);
       				redir.putExtra("redirec", LoadRedirecto);
       				startActivity(redir);
-      				finish();
-      				//Toast.makeText(getApplicationContext(), LoadRedirecto, Toast.LENGTH_LONG).show();
-      				
+      				finish();      				
       				
       			}
       		  });
@@ -234,8 +232,6 @@ public class UploadFTPActivity extends Activity
 			    	    	    	String name = st.nextToken();
 			    	    	    	boolean uploaded = ftpClient.storeFile(name+".upl", in);
 			    	    	    	//Log.i("PASA POR", name);
-			    	    	    		
-			    	    	    		
 			    	    	    	
 			    	    	    	try {
 			    	    	    		  InputStream stO = new BufferedInputStream(ftpClient.retrieveFileStream("foo.bar"),
@@ -286,15 +282,12 @@ public class UploadFTPActivity extends Activity
 					                    		if(Result != null){
 					                    					
 					               					Log.i("EXTENSIÓN: ", " OK:  "+Result);
-					               					//Log.i("RESULTAD: ", " "+Result);
-					               					
-					                    					
+					               							
 					                    		}else{
 					
 					                    			Log.i("El archivo que se subió fue un txt: ", nameTUp+extension+" no se pudo procesar correctamente");
 					                    		}
-					                    		//Log.i("RESULTADO", Result);  	    	    	
-			                    		
+					             		
 			    	    	    		}
 			    	    	    	}
 			    	    	    	else
