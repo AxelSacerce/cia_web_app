@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_button_upload.png",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/drawable-xhdpi/ic_button_upload.png"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_button_upload_bn.png",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/drawable-xhdpi/ic_button_upload_bn.png"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/fondo1.png",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/drawable-xhdpi/fondo1.png"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/cia.png",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/drawable-xhdpi/cia.png"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_launcher.png",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/drawable-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_cia.png",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/drawable-xhdpi/ic_cia.png"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_exit.png",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/drawable-xhdpi/ic_exit.png"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_ok.png",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/drawable-xhdpi/ic_ok.png"
+    }
+]

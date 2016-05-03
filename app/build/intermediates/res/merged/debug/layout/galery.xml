@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginTop="10dp"
+    android:orientation="vertical" >
+
+    <GridView
+        android:id="@+id/PhoneImageGrid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.20"
+        android:columnWidth="190dp"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp"
+        android:drawSelectorOnTop="true"
+        android:listSelector="@drawable/color_select" >
+
+    </GridView>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btnVincular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.20"
+            android:contentDescription="@string/strVincular"
+            android:text="@string/strVincular" />
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.48"
+            android:contentDescription="@string/strBack"
+            android:text="@string/strBack" />
+    </LinearLayout>
+
+</LinearLayout>

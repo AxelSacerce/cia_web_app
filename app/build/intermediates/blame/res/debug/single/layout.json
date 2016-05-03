@@ -1,0 +1,74 @@
+[
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/layout/galery.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/layout/galery.xml"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/layout/activity_grid_view.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/layout/activity_grid_view.xml"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/layout/galleryitem.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/layout/galleryitem.xml"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/layout/link.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/layout/link.xml"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/layout/uploadqueueitem.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/layout/uploadqueueitem.xml"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/layout/layout_fullscreen_image.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/layout/layout_fullscreen_image.xml"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/layout/activity_main.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/layout/upload.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/layout/upload.xml"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/layout/activity_fullscreen_view.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/layout/activity_fullscreen_view.xml"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/layout/uploadgallery.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/layout/uploadgallery.xml"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/layout/uploaditem.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/layout/uploaditem.xml"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/layout/image_gallery_items.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/layout/image_gallery_items.xml"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/layout/layout_ftp.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/layout/layout_ftp.xml"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/layout/select.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/layout/select.xml"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/layout/galeria_enlazar.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/layout/galeria_enlazar.xml"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/layout/uploadqueue.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/layout/uploadqueue.xml"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/layout/activity_gallery_activity_show.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/layout/activity_gallery_activity_show.xml"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/layout/image_zoomdialog.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/layout/image_zoomdialog.xml"
+    }
+]

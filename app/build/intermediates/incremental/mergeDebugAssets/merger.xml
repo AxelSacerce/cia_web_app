@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/home/ahso/AndroidStudioProjects/CIA/app/src/main/assets"><file name="HandmadeTypewriter.ttf" path="/home/ahso/AndroidStudioProjects/CIA/app/src/main/assets/HandmadeTypewriter.ttf"/><file name="MonaKo.ttf" path="/home/ahso/AndroidStudioProjects/CIA/app/src/main/assets/MonaKo.ttf"/></source></dataSet><dataSet config="debug"><source path="/home/ahso/AndroidStudioProjects/CIA/app/src/debug/assets"/></dataSet></merger>

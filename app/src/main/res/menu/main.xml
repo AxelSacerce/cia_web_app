@@ -1,0 +1,59 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.cia.MainActivity" >
+
+    <item
+        android:id="@+id/upload"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/upload"
+        android:src="@drawable/ic_button_upload"/>
+    
+    
+    <item
+        android:id="@+id/close"
+        android:orderInCategory="500"
+        android:showAsAction="never"
+        android:title="@string/close"
+        android:src="@drawable/ic_exit"/>
+    
+   
+    <item
+        android:id="@+id/takephoto"
+        android:orderInCategory="200"
+        android:showAsAction="never"
+        android:title="@string/takephoto"/>
+    <!-- item
+        android:id="@+id/view2"
+        android:orderInCategory="300"
+        android:showAsAction="never"
+        android:title="@string/view2"/ -->
+    
+    <!-- item
+        android:id="@+id/view1"
+        android:orderInCategory="400"
+        android:showAsAction="never"
+        android:title="@string/view1"/ -->
+    
+     <!--
+    
+    <item
+        android:id="@+id/takephoto"
+        android:orderInCategory="200"
+        android:showAsAction="never"
+        android:title="@string/takephoto"/>
+        
+    <item
+        android:id="@+id/view1"
+        android:orderInCategory="300"
+        android:showAsAction="never"
+        android:title="@string/view1"/>
+    
+    <item
+        android:id="@+id/view2"
+        android:orderInCategory="400"
+        android:showAsAction="never"
+        android:title="@string/view2"/>
+    -->
+
+</menu>

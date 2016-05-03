@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/menu/main.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/menu/main.xml"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/menu/gallery_activity_show.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/menu/gallery_activity_show.xml"
+    }
+]

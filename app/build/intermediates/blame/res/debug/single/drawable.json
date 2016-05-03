@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/drawable/lost.png",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/drawable/lost.png"
+    },
+    {
+        "merged": "/home/ahso/AndroidStudioProjects/CIA/app/build/intermediates/res/merged/debug/drawable/color_select.xml",
+        "source": "/home/ahso/AndroidStudioProjects/CIA/app/src/main/res/drawable/color_select.xml"
+    }
+]
