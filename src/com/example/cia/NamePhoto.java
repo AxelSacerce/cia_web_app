@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -40,6 +41,8 @@ public class NamePhoto extends Activity
 	private String path,name,actividad;
 	private TextView tv1,tv2,tv3;
 	private File imgFile;
+	String 	RedirecTo= null;
+	String  LoadRedirectTo = null;
 	
 	@Override
        public void onCreate(Bundle savedInstanceState)
@@ -58,6 +61,12 @@ public class NamePhoto extends Activity
               path = getIntent().getStringExtra("path");
               name = getIntent().getStringExtra("name");
               actividad = getIntent().getStringExtra("actividad");
+              RedirecTo = getIntent().getStringExtra("redireccion");
+              
+              LoadRedirectTo = "http://www.chispudo.com:8000/cia/webapp/main.php?"+RedirecTo;
+              
+              //Toast.makeText(getApplicationContext(),"Graba y Redirecciona a: "+LoadRedirectTo, Toast.LENGTH_LONG).show();
+              
               //edit1.setText(name);
               imgFile = new  File(path);
               Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());              					
@@ -94,6 +103,12 @@ public class NamePhoto extends Activity
             			      
       	      			    Toast toast = Toast.makeText(getApplicationContext(),"Foto guardada, nombrada y preparada para utilizarla.", Toast.LENGTH_SHORT);
       	      		    	toast.show();
+      	      		    	
+	      	      		    Intent redir = new Intent(NamePhoto.this, MainActivity.class);
+	          				redir.putExtra("redirec", LoadRedirectTo);
+	          				startActivity(redir);
+	          				finish();     
+      	      		    	
       						Log.i("LOG MESSAGE",  file.toString());
       					}
       					else if(actividad.equals("Externa"))
@@ -148,9 +163,10 @@ public class NamePhoto extends Activity
     			         public void onClick(DialogInterface dialog, int whichButton) 
     			         {
     			        	imgFile.delete();
-    			        	Toast toast = Toast.makeText(getApplicationContext(),"No ha sido guardada la fotografía.", Toast.LENGTH_SHORT);
-    	      		    	toast.show();
-     			        	//onBackPressed();
+    			        	Toast.makeText(getApplicationContext(),"No ha sido guardada la fotografía.", Toast.LENGTH_SHORT).show();
+    	      		    	Intent redir = new Intent(NamePhoto.this, MainActivity.class);
+	          				redir.putExtra("redirec", LoadRedirectTo);
+	          				startActivity(redir);
     	      		    	finish();
     			         }
     			    }).show();

@@ -601,16 +601,44 @@ public class MainActivity extends Activity {
 	        		
 	        		NameFileLink = Usuario+"_"+Comando+"_"+Type+"_"+Reference+"_";
 	        		
+	        		
+	        		
+	        		// Construct URL redirection
+	        		String Redirect = Get;
+	        		
+	        		String[] SeparaRedirect = Redirect.split("=");
+	        		 
+	        		String mnuOptAnd1 = SeparaRedirect[1].trim();
+	        		String[] SeparaRand	= mnuOptAnd1.split("&");
+	        		String mnuOpt = SeparaRand[0].trim();
+	        		
+	        		String idrow = SeparaRedirect[2].trim();
+	        		String[] SeparaRand2 = idrow.split("&");
+	        		String idrowR = SeparaRand2[0].trim();
+	        		
+	        		String idrow2 = SeparaRedirect[3].trim();
+	        		String[] SeparaRand3 = idrow2.split("&");
+	        		String idrowR2 = SeparaRand3[0].trim();
+	        		
+	        		uriRedirect = "mnopt="+mnuOpt+"&idrow="+idrowR+"&idrow2="+idrowR2;
+	        		
+	        		
+	        		
+	        		
+	        		
+	        		
 	        		Log.i("TEXT PROSSECED", NameFileLink.toString());
 	        		
 	        		Intent gal = new Intent(MainActivity.this, GalleryActivityShow.class );
 	        		gal.putExtra("RenameFileLink", NameFileLink);
+	        		gal.putExtra("redirect", uriRedirect);
 	        		startActivity(gal);
 	        		
 	    			
 	    	}else if(Get.contains("logout=1"))
 	    	{ 
-	    	    
+	    	    //finish();
+	    	    //System.exit(0);
 	    		onDestroy();
 	    	}
 	    		
@@ -631,9 +659,12 @@ public class MainActivity extends Activity {
 	    	Intent i = new Intent(MainActivity.this,NamePhoto.class); 
 	    	i.putExtra("path",readFromFile("pathphoto.txt"));
 	    	i.putExtra("name",readFromFile("name.txt"));
-	    	i.putExtra("actividad","interna");
+	    	i.putExtra("actividad","interna"); 	
+    		i.putExtra("redireccion", uriRedirect);
+            
             startActivityForResult(i,4);
             Toast.makeText(getApplicationContext(),"Foto tomada, agregue un nombre\n y una descripción.", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(),"Redireccionará a: "+ uriRedirect, Toast.LENGTH_SHORT).show();
 	    }
 	    else if(requestCode == 4 && resultCode != RESULT_OK)
 	    {
@@ -730,7 +761,7 @@ public class MainActivity extends Activity {
 	public void onDestroy() 
 	{
         super.onDestroy();
-        myWebView.loadUrl("http://www.chispudo.com:8000/cia/webapp/index.php?logout=1"); 
+        //myWebView.loadUrl("http://www.chispudo.com:8000/cia/webapp/index.php?logout=1"); 
    	 	finish();
         System.exit(0);
     }

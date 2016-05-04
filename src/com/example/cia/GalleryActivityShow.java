@@ -34,6 +34,8 @@ public class GalleryActivityShow extends Activity {
 	static String archivoImg;
 	static String archivoTxt;
 	String  RenameFIntent;
+	String 	RedirecTo = null;
+	String 	LoadRedirecTo = null;
     
 	
 	
@@ -52,6 +54,9 @@ public class GalleryActivityShow extends Activity {
         btnVer  	= (Button)findViewById(R.id.btnVer);
         
         RenameFIntent = getIntent().getStringExtra("RenameFileLink");
+        RedirecTo = getIntent().getStringExtra("redirect");
+        LoadRedirecTo = "http://www.chispudo.com:8000/cia/webapp/main.php?"+RedirecTo;
+        
         
         gridViewAdapter = new GridViewAdapter(getApplicationContext(), getAllShowImagesPath(targetPath));
         
@@ -107,10 +112,14 @@ public class GalleryActivityShow extends Activity {
 			if(VincularImg && VincularTxt){
 				Toast.makeText(getApplicationContext(), "Archivos vinculados, listos para ser procesados", 
 						Toast.LENGTH_LONG).show();
+				Intent redir = new Intent(GalleryActivityShow.this, MainActivity.class);
+  				redir.putExtra("redirec", LoadRedirecTo);
+  				startActivity(redir);
 				finish();
 			}else if(!VincularTxt){
 				
 				Toast.makeText(getApplicationContext(), "No existe comentario para la imagen vinculada", Toast.LENGTH_LONG).show();
+				
 				finish();
 			}
 						
@@ -122,8 +131,10 @@ public class GalleryActivityShow extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			
-			finish();
+				Intent redir = new Intent(GalleryActivityShow.this, MainActivity.class);
+				redir.putExtra("redirec", LoadRedirecTo);
+				startActivity(redir);			
+				finish();
 		}
     	   
     	   
